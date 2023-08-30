@@ -1,22 +1,38 @@
 using System;
-using Riddle.Models;
 
 namespace ShapeTracker
 {
   class Program
-  {
-    static void Main()
+{
+    static void Main(string[] args)
     {
-      Console.WriteLine("*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*");
-      Console.WriteLine("Welcome to your Doom....");
-      Console.WriteLine("I am the Riddle Sphinx...");
-      Console.WriteLine("Answer my question correctly to survive D:");
-      Console.WriteLine("Are you ready to begin? Enter 'yes' to proceed, or 'no' to exit the console");
-      string userInput = Console.ReadLine();
-      if (userInput == "yes")
-      {
-        Console.WriteLine("Answer the following: \n {Riddle}");
-      }
+        Sphinx sphinx = new Sphinx();
+        bool defeated = false;
+
+         Console.WriteLine("*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*");
+         Console.WriteLine("Welcome to your Doom....");
+         Console.WriteLine("I am the Riddle Sphinx...");
+          Console.WriteLine("You must answer the S riddles correctly to defeat me.");
+
+        while (!defeated)
+        {
+            Riddle riddle = sphinx.GetRandomRiddle();
+            Console.WriteLine("\nSphinx asks: " + riddle.Question);
+            Console.Write("Your answer: ");
+            string userAnswer = Console.ReadLine();
+
+            if (sphinx.IsAnswerCorrect(riddle, userAnswer))
+            {
+                Console.WriteLine("Correct! The Sphinx asks another riddle.");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect! The Sphinx eats you.");
+                defeated = true;
+            }
+        }
+
+        Console.WriteLine("Game Over!");
     }
-  }
+}
 }
